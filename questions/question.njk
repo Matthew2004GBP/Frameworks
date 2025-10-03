@@ -1,0 +1,15 @@
+---
+title: {{ question.title }}
+pagination:
+  data: questions
+  size: 1
+  alias: question
+  addAllPagesToCollections: true
+permalink: "questions/{{ question.title | slugify }}/"
+tags: questions
+eleventyComputed:
+  title: "{{ question.title }}"
+layout: layout.html
+home: /
+---
+{{ question.question | safe }}

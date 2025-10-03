@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ title | default: "Welcome to the quiz game" }}</title>
+    <link href="/css/index.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav>
+      <ol>
+        {% if home %}
+          <li class="crumb"><a href="{{ home }}">Quiz</a></li>
+          <li class="crumb">{{ title }}</li>
+        {% else %}
+          <li class="crumb">Quiz</li>
+        {% endif %}
+      </ol>
+    </nav>
+    <header>
+        <h1>{{ title | default: "Welcome to the quiz game" }}</h1>
+    </header>
+    <main>
+        {{ content }}
+    </main>
+  </body>
+</html>

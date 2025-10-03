@@ -1,0 +1,25 @@
+
+/* changes the color of all text on the page to red */
+body {
+  color: red;
+}
+
+/* aligns everything in the center of the page */
+body {
+  text-align: center;
+}
+
+/* Here helps create the background image for all pages */
+body {
+  background-image: url("/images/Autumn.webp");
+  background-size: cover;      
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+}
+
+.center {
+  text-align: center;     
+  margin-top: 20vh;     
+}
+
+  
