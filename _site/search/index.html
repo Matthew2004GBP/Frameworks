@@ -1,0 +1,162 @@
+<!-- Layout.njk -->
+<!DOCTYPE html>
+<html lang="en">
+<!-- the path for the css to be inserted in -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Search CMS Content</title>
+    <link rel="stylesheet" href="/css/index.css" />
+  </head>
+  <body>
+    <h1>My about me site</h1>
+
+    
+
+    <main>
+      
+<!-- Search page that demonstrates filtering posts by typing (search-based filtering) -->
+<section class="search-page">
+
+  <h1>Search CMS Content</h1>
+
+  <!-- Explanation tying this page to the assignment requirements -->
+  <h2>
+    This part of the assignment goes back to the Pagination &amp; Filtering requirements
+    but this time it is demonstrating the part that requires filtering by SEARCHING.
+  </h2>
+
+  <!-- Link back to the Assignment 2 hub page -->
+  <nav class="search-nav"> <a href="/assignment2page/">Assignment 2</a> </nav>
+
+  <!-- Instructions for the user -->
+  <p class="search-instructions"> Type to search posts from the CMS by title, body, category, or tags. </p>
+
+  <!-- The search bar where the user types the query -->
+  <input
+    id="searchInput"
+    type="text"
+    placeholder="Start searching."
+    autocomplete="off"
+  />
+
+  <!-- Where search results will appear as cards -->
+  <ul id="searchResults" class="cms-list"></ul>
+
+  <!-- Messages "Start searching" or "Does not exist, try typing in different characters." would pop up -->
+  <p id="searchEmpty" class="search-empty"></p>
+
+</section>
+
+<script>
+  // CMS data being build from eleventy which will be used for search filtering
+  const SEARCH_DATA = [{"title":"What course am I taking?","slug":"what-course-am-i-taking-1","category":"About","tags":["Computer programming","DC","College","about","what","course","am"],"body":"quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto","excerpt":"quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto","publishedAt":"2025-11-17T04:21:54.869Z"},{"title":"My favorite hobbies","slug":"my-favorite-hobbies-2","category":"Hobbies","tags":["hobbies","karate","sleeping","my","favorite"],"body":"est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla","excerpt":"est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui …","publishedAt":"2025-11-16T04:21:54.869Z"},{"title":"My future plans","slug":"my-future-plans-3","category":"Future","tags":["future","Tech career","Plans","my","plans"],"body":"et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut","excerpt":"et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et ve…","publishedAt":"2025-11-15T04:21:54.869Z"},{"title":"eum et est occaecati","slug":"eum-et-est-occaecati-4","category":"About","tags":["about","eum","et","est"],"body":"ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit","excerpt":"ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis…","publishedAt":"2025-11-14T04:21:54.869Z"},{"title":"nesciunt quas odio","slug":"nesciunt-quas-odio-5","category":"Hobbies","tags":["hobbies","nesciunt","quas","odio"],"body":"repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque","excerpt":"repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque","publishedAt":"2025-11-13T04:21:54.869Z"},{"title":"dolorem eum magni eos aperiam quia","slug":"dolorem-eum-magni-eos-aperiam-quia-6","category":"Future","tags":["future","dolorem","eum","magni"],"body":"ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae","excerpt":"ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate …","publishedAt":"2025-11-12T04:21:54.869Z"},{"title":"magnam facilis autem","slug":"magnam-facilis-autem-7","category":"About","tags":["about","magnam","facilis","autem"],"body":"dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas","excerpt":"dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas","publishedAt":"2025-11-11T04:21:54.869Z"},{"title":"dolorem dolore est ipsam","slug":"dolorem-dolore-est-ipsam-8","category":"Hobbies","tags":["hobbies","dolorem","dolore","est"],"body":"dignissimos aperiam dolorem qui eum\nfacilis quibusdam animi sint suscipit qui sint possimus cum\nquaerat magni maiores excepturi\nipsam ut commodi dolor voluptatum modi aut vitae","excerpt":"dignissimos aperiam dolorem qui eum\nfacilis quibusdam animi sint suscipit qui sint possimus cum\nquaerat magni maiores excepturi\nipsam ut commodi dolor volupt…","publishedAt":"2025-11-10T04:21:54.869Z"},{"title":"nesciunt iure omnis dolorem tempora et accusantium","slug":"nesciunt-iure-omnis-dolorem-tempora-et-accusantium-9","category":"Future","tags":["future","nesciunt","iure","omnis"],"body":"consectetur animi nesciunt iure dolore\nenim quia ad\nveniam autem ut quam aut nobis\net est aut quod aut provident voluptas autem voluptas","excerpt":"consectetur animi nesciunt iure dolore\nenim quia ad\nveniam autem ut quam aut nobis\net est aut quod aut provident voluptas autem voluptas","publishedAt":"2025-11-09T04:21:54.869Z"},{"title":"optio molestias id quia eum","slug":"optio-molestias-id-quia-eum-10","category":"About","tags":["about","optio","molestias","id"],"body":"quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error","excerpt":"quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error","publishedAt":"2025-11-08T04:21:54.869Z"},{"title":"et ea vero quia laudantium autem","slug":"et-ea-vero-quia-laudantium-autem-11","category":"Hobbies","tags":["hobbies","et","ea","vero"],"body":"delectus reiciendis molestiae occaecati non minima eveniet qui voluptatibus\naccusamus in eum beatae sit\nvel qui neque voluptates ut commodi qui incidunt\nut animi commodi","excerpt":"delectus reiciendis molestiae occaecati non minima eveniet qui voluptatibus\naccusamus in eum beatae sit\nvel qui neque voluptates ut commodi qui incidunt\nut a…","publishedAt":"2025-11-07T04:21:54.869Z"},{"title":"in quibusdam tempore odit est dolorem","slug":"in-quibusdam-tempore-odit-est-dolorem-12","category":"Future","tags":["future","in","quibusdam","tempore"],"body":"itaque id aut magnam\npraesentium quia et ea odit et ea voluptas et\nsapiente quia nihil amet occaecati quia id voluptatem\nincidunt ea est distinctio odio","excerpt":"itaque id aut magnam\npraesentium quia et ea odit et ea voluptas et\nsapiente quia nihil amet occaecati quia id voluptatem\nincidunt ea est distinctio odio","publishedAt":"2025-11-06T04:21:54.869Z"}];
+
+  (function () {
+    const input = document.getElementById('searchInput');
+    const resultsEl = document.getElementById('searchResults');
+    const emptyEl = document.getElementById('searchEmpty');
+
+    //List of my APIS being rendered
+    function renderResults(items) {
+      resultsEl.innerHTML = "";
+
+      if (items.length === 0) {
+        emptyEl.textContent = "Does not exist, try typing in different characters.";
+        emptyEl.style.display = "block";
+        return;
+      }
+
+      emptyEl.style.display = "none";
+
+      items.forEach(function (post) {
+        const li = document.createElement("li");
+        li.className = "cms-card";
+
+        //The title name
+        const title = post.title || "";
+
+        // The categories area
+        let categoryText = "";
+        if (post.category) {categoryText = "Category: " + post.category + " · ";
+        }
+
+        // The date
+        let dateText = "";
+        if (post.publishedAt) {
+          const dateObj = new Date(post.publishedAt);
+          dateText = dateObj.toLocaleDateString();
+        }
+
+        // List of tags
+        let tagsText = "";
+        if (post.tags && post.tags.length > 0) {
+          tagsText = " · Tags: " + post.tags.join(", ");
+        }
+
+        // Excerpt section
+        const bodyText = post.body || "";
+        let excerpt = bodyText;
+
+        if (bodyText.length > 160) {
+          excerpt = bodyText.slice(0, 160) + "…";
+        }
+
+        // The interior of the build card
+        li.innerHTML =
+          '<h3 class="cms-card-title">' +
+            '<a href="/questions/' + post.slug + '/">' + title + "</a>" +
+          "</h3>" +
+          '<small class="cms-card-meta">' +
+            categoryText +
+            dateText +
+            tagsText +
+          "</small>" +
+          '<p class="cms-card-excerpt">' + excerpt + "</p>";
+
+        resultsEl.appendChild(li);
+      });
+    }
+
+    // Where the search imput functions
+    function handleInput() {
+      const q = input.value.toLowerCase().trim();
+
+      // Prompt when typing nothing
+      if (!q) {
+        resultsEl.innerHTML = "";
+        emptyEl.textContent = "Search posts here!";
+        emptyEl.style.display = "block";
+        return;
+      }
+
+      // All things are filtered here, body, category, or tags
+      const filtered = SEARCH_DATA.filter(function (post) {
+        const parts = [];
+
+        if (post.title) parts.push(post.title);
+        if (post.category) parts.push(post.category);
+        if (post.body) parts.push(post.body);
+      
+        if (post.tags && post.tags.length > 0) {parts.push(post.tags.join(" "));
+        }
+
+        const haystack = parts.join(" ").toLowerCase();
+        return haystack.includes(q);
+      });
+
+      renderResults(filtered);
+    }
+
+    // Filtering starts working as typing goes on
+    input.addEventListener("input", handleInput);
+  })();
+</script>
+
+    </main>
+
+    <footer>
+      <p>Durham college</p>
+    </footer>
+  </body>
+</html>

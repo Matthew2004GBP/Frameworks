@@ -1,0 +1,110 @@
+<!-- Layout.njk -->
+<!DOCTYPE html>
+<html lang="en">
+<!-- the path for the css to be inserted in -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Questions</title>
+    <link rel="stylesheet" href="/css/index.css" />
+  </head>
+  <body>
+    <h1>My about me site</h1>
+
+    
+
+    <main>
+      
+
+<!-- The page number when I click on the next page goes up here -->
+<h1>Questions (page 3)</h1>
+
+
+<!-- description -->
+<h2> This part of assignment 2 demostrates the task “Content Modeling - Structure content types and fields within the Headless CMS to fit the needs of the SSG” </h2>
+<h2> The way it can satisfy the needs of SSG was by making a slug to make the URLS, titles for headings,
+categories so it can be filtered which also helps another task, tags so it can be searched which helps another task again,
+and it can show the full content</h2>
+
+
+<!-- Page takes me back to the homepage of assignment 2 -->
+<p style="margin:1rem 0;">  <a href="/assignment2page/">Assignment 2</a>   </p>
+
+
+<!-- In the unlikely events of 0 items in this page it will display a message -->
+
+
+
+<!-- Starts rendering the list of questions for each page, should be 3 pages -->
+  <ul class="cms-list">
+
+  <!--Looping the questions in the page that the user is in -->
+  
+    <li class="cms-card">
+
+    <!-- This sections will help me make the title into a link that takes me to the API which is jibberish-->
+      <h3 style="margin:.25rem 0;"> <a href="/questions/et-ea-vero-quia-laudantium-autem-11/">et ea vero quia laudantium autem</a> </h3>
+
+      <!-- Details for the category, dates and tags -->
+      <small>
+        Category: Hobbies · 
+        
+        Nov 06, 2025
+         · Tags: hobbies, et, ea, vero
+        
+
+      </small>
+
+
+      <!-- An image url is expected to show up for this section -->
+      
+      <p style="margin:.5rem 0 0;"> delectus reiciendis molestiae occaecati non minima eveniet qui voluptatibus
+accusamus in eum beatae sit
+vel qui neque voluptates ut commodi qui incidunt
+ut…</p>
+      </li>
+      
+    <li class="cms-card">
+
+    <!-- This sections will help me make the title into a link that takes me to the API which is jibberish-->
+      <h3 style="margin:.25rem 0;"> <a href="/questions/in-quibusdam-tempore-odit-est-dolorem-12/">in quibusdam tempore odit est dolorem</a> </h3>
+
+      <!-- Details for the category, dates and tags -->
+      <small>
+        Category: Future · 
+        
+        Nov 05, 2025
+         · Tags: future, in, quibusdam, tempore
+        
+
+      </small>
+
+
+      <!-- An image url is expected to show up for this section -->
+      
+      <p style="margin:.5rem 0 0;"> itaque id aut magnam
+praesentium quia et ea odit et ea voluptas et
+sapiente quia nihil amet occaecati quia id voluptatem
+incidunt ea est distinctio odio</p>
+      </li>
+      
+      </ul>
+      
+
+<nav style="text-align:center;margin:1rem 0;">
+
+<!-- Go back to the previos page -->
+
+  
+    <a href="/questions/page/2/">Go back</a>
+  
+  
+</nav>
+
+    </main>
+
+    <footer>
+      <p>Durham college</p>
+    </footer>
+  </body>
+</html>

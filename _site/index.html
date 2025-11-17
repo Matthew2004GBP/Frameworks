@@ -1,73 +1,75 @@
-<!-- MAtthew de Kock-->
-
-<!--Assignment 1-->
-
-<!--Due October 3rd-->
-
-<!--The layout secion of the file which is designing the front page-->
-
+<!-- Layout.njk -->
 <!DOCTYPE html>
- <html lang="en">
+<html lang="en">
+<!-- the path for the css to be inserted in -->
   <head>
-   <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Home</title>
-  <!-- This is the index.css file that will be used for this assignment and updated soforth if needed-->
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/index.css" />
   </head>
-<body>
- <!-- The title at the top -->
+  <body>
     <h1>My about me site</h1>
 
-    <header>    
-    <!-- The Links created, I have them all in their own separate header, rather then have them all
-    on the same line if I were to have them all share 1 header -->
-     <nav>
+    
+      <!-- This navigation only appears on the home page -->
+      <header>
+      <nav>
+      <a href="/">Home page</a>
+      </nav>
+      </header>
 
-     <a href="/">Home page</a>
+      <!-- The links to the MD pages -->
 
-     </nav>
-  </header>
-
-  <header>
-     <nav>
-
+      <header>
+      <nav>
       <a href="/questions/Course/">What course have I been taking in Durham college?</a>
+      </nav>
+      </header>
 
-     </nav>
-  </header>
-    <header>
-     <nav>
-
+      <header>
+      <nav>
       <a href="/questions/Hobbies/">What are some of my favorite things to do?</a>
+      </nav>
+      </header>
 
-     </nav>
-  </header>
-    <header>
-     <nav>
-
+      <header>
+      <nav>
       <a href="/questions/Future/">What is my plans for my future life coming someday?</a>
+      </nav>
+      </header>
 
-     </nav>
-  </header>
+      <p> =================================================================== </p>
+      <p> =================================================================== </p>
 
-  <!-- Have this here so it can call over the index.md file -->
-  <main>
+      <header>
+        <nav>
+          <a href="/assignment2page/">Assignment 2</a>
+        </nav>
+      </header>
 
-    <p>Hello and welcome to my about me site.</p>
+      <p> =================================================================== </p>
+      <p> =================================================================== </p>
+
+      <p> ========= npx eleventy --serve --port=9000 ========= <p>
+
+    
+
+    <main>
+      <p>Hello and welcome to my about me site.</p>
 <p>Here will be the setup for Assignment 1 all the way up to Assignment 3</p>
 <p>This course will be me continuously updating this site with requirements
 for this semester</p>
 <p>I want to make this site showing things about me and my progress throughout this course
 hopefully</p>
 <p>I will keep updating this page with updates on what assignment I am working on, for now this is being done from september 20th to October 3rd</p>
+<p>UPDATE:</p>
+<p>Today is November 12th, I started assignment 2 a while ago and the assignment2page should lead to what I have used to fufill the requirememnts for assignment 2</p>
 
+    </main>
 
-  </main>
-
-  <footer>
-   <!-- This here is the footer at the end of all of the content that the MD file provides-->
-    <p>Durham college</p>
-  </footer>
- </body>
- 
- </html>
+    <footer>
+      <p>Durham college</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+---
+layout: Layout.njk
+
+pagination:
+  # Use the categories data from _data/categories.js
+  data: categories
+
+  # Generate one page per category
+  size: 1
+  
+  # Inside this template, the current category is called "cat"
+  alias: cat
+
+  # URL structure for each category page
+  permalink: "/questions/category/{{ cat.slug }}/index.html"
+---
+
+<!-- The title for the current category -->
+<h1>Category: {{ cat.name }}</h1>
+
+<!-- Link back to Assignment 2 homepage -->
+<p style="margin: 1rem 0;"> <a href="/assignment2page/">Assignment 2</a> </p>
+
+<!-- All posts that belong to the selected category -->
+<ul class="cms-lists">
+
+  <!-- Loops through every single CMP post -->
+  {% for q in cmsdata %}
+
+    <!-- Only show posts whose category matches the current category -->
+    {% if q.category and q.category == cat.name %}
+      <li class="cms-card">
+
+        <!-- Turn the title into a clickable link -->
+        <h3 style="margin: .25rem 0;"> <a href="/questions/{{ q.slug }}/">{{ q.title }}</a> </h3>
+
+        <!-- Meta info: published date + tags -->
+        <small>
+          <!-- Format date using readableDate filter -->
+          {{ q.publishedAt | readableDate }}
+
+          <!-- Display tags if available -->
+          {% if q.tags and q.tags.length %}
+            · Tags: {{ q.tags | join(", ") }}
+          {% endif %}
+        </small>
+
+        <!-- Post body preview: truncate's to 160 characters -->
+        <p style="margin: .5rem 0 0;"> {{ (q.excerpt or q.body) | truncate(160, true, "…") }} </p>
+
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

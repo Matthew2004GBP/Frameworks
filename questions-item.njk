@@ -1,0 +1,48 @@
+---
+layout: Layout.njk
+
+pagination:
+  # The cms posts are used as the data
+  data: cmsdata
+
+  # Generate one page per post
+  size: 1
+
+  # the posts are called "item"
+  alias: item
+
+# URL pattern for each post detail page
+permalink: "questions/{{ item.slug }}/"
+---
+
+<!--entire page is covered with an article with a centered and maxed width -->
+<article class="post-article">
+
+  <!-- title of the posts -->
+  <h1>{{ item.title }}</h1>
+
+  <!-- Category and date section -->
+  <p>
+    <!-- If post has a category, then display "Category: X ·" just before the date -->
+    {% if item.category %}
+      <strong>Category:</strong> {{ item.category }} ·
+    {% endif %}
+    <!-- Show the published date using the readableDate filter -->
+    {{ item.publishedAt | readableDate }}
+  </p>
+
+  <!-- If there's tags for the post, then they may be displayed in a separated list with the use of commas -->
+  {% if item.tags and item.tags.length %}
+    <p><strong>Tags:</strong> {{ item.tags | join(", ") }}</p>
+  {% endif %}
+
+  <!-- This displays the full body text of the posts that are displaying -->
+  <p>{{ item.body }}</p>
+
+  <!-- Takes the user back to the questions secion -->
+  <p class="post-back-link">
+    <a href="/questions/">Return to the Questions</a>
+  </p>
+
+  <!-- end of page being wrapped in article -->
+</article>

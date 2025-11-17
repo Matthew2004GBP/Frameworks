@@ -1,0 +1,79 @@
+---
+title: "Questions"
+layout: Layout.njk
+pagination:
+  data: cmsdata
+  size: 5
+  alias: q
+permalink: "questions/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}"
+---
+
+
+<!-- The page number when I click on the next page goes up here -->
+<h1>Questions (page {{ pagination.pageNumber + 1 }})</h1>
+
+
+<!-- description -->
+<h2> This part of assignment 2 demostrates the task “Content Modeling - Structure content types and fields within the Headless CMS to fit the needs of the SSG” </h2>
+<h2> The way it can satisfy the needs of SSG was by making a slug to make the URLS, titles for headings,
+categories so it can be filtered which also helps another task, tags so it can be searched which helps another task again,
+and it can show the full content</h2>
+
+
+<!-- Page takes me back to the homepage of assignment 2 -->
+<p style="margin:1rem 0;">  <a href="/assignment2page/">Assignment 2</a>   </p>
+
+
+<!-- In the unlikely events of 0 items in this page it will display a message -->
+{% if pagination.items | length == 0 %}
+  <p>This page should not appear unless the page is empty with no APIs.</p>
+{% else %}
+
+
+<!-- Starts rendering the list of questions for each page, should be 3 pages -->
+  <ul class="cms-list">
+
+  <!--Looping the questions in the page that the user is in -->
+  {% for q in pagination.items %}
+    <li class="cms-card">
+
+    <!-- This sections will help me make the title into a link that takes me to the API which is jibberish-->
+      <h3 style="margin:.25rem 0;"> <a href="/questions/{{ q.slug }}/">{{ q.title }}</a> </h3>
+
+      <!-- Details for the category, dates and tags -->
+      <small>
+        {% if q.category %}Category: {{ q.category }} · 
+        {% endif %}
+        {{ q.publishedAt | readableDate }}
+        {% if q.tags and q.tags.length %} · Tags: {{ q.tags | join(", ") }}
+        {% endif %}
+
+      </small>
+
+
+      <!-- An image url is expected to show up for this section -->
+      {% if q.imageUrl %}
+      <div><img src="{{ q.imageUrl }}" alt="{{ q.title }}" style="max-width:100%;margin-top:.5rem;"></div>
+      {% endif %}
+      <p style="margin:.5rem 0 0;"> {{ q.body | truncate(160) }}</p>
+      </li>
+      {% endfor %}
+      </ul>
+      {% endif %}
+
+<nav style="text-align:center;margin:1rem 0;">
+
+<!-- Go back to the previos page -->
+
+  {% if pagination.href.previous %}
+    <a href="{{ pagination.href.previous }}">Go back</a>
+  {% endif %}
+  {% if pagination.href.next %}
+
+  <!-- Separates the 2 links -->
+    {% if pagination.href.previous %} <--X--> {% endif %}
+
+    <!-- Go to the next page if possible-->
+    <a href="{{ pagination.href.next }}">Next page</a>
+  {% endif %}
+</nav>

@@ -1,0 +1,25 @@
+---
+permalink: "search.json"
+eleventyExcludeFromCollections: true
+---
+
+<!-- this part builds json files for cms searching and filtering -->
+[
+{% for q in cmsdata -%}
+  {
+    <!-- these are tags for each post -->
+    "title": {{ q.title | json | safe }},
+
+    "url": {{ ("/questions/" + q.slug + "/") | json | safe }},
+
+    "body": {{ (q.body or "") | json | safe }},
+
+    "category": {{ (q.category or "") | json | safe }},
+
+    "tags": {{ (q.tags or []) | json | safe }}
+
+  }{% if not loop.last %},{% endif %}
+
+{%- endfor %}
+
+]

@@ -1,0 +1,142 @@
+---
+title: "Search CMS Content"
+layout: Layout.njk
+---
+
+<!-- Search page that demonstrates filtering posts by typing (search-based filtering) -->
+<section class="search-page">
+
+  <h1>Search CMS Content</h1>
+
+  <!-- Explanation tying this page to the assignment requirements -->
+  <h2>
+    This part of the assignment goes back to the Pagination &amp; Filtering requirements
+    but this time it is demonstrating the part that requires filtering by SEARCHING.
+  </h2>
+
+  <!-- Link back to the Assignment 2 hub page -->
+  <nav class="search-nav"> <a href="/assignment2page/">Assignment 2</a> </nav>
+
+  <!-- Instructions for the user -->
+  <p class="search-instructions"> Type to search posts from the CMS by title, body, category, or tags. </p>
+
+  <!-- The search bar where the user types the query -->
+  <input
+    id="searchInput"
+    type="text"
+    placeholder="Start searching."
+    autocomplete="off"
+  />
+
+  <!-- Where search results will appear as cards -->
+  <ul id="searchResults" class="cms-list"></ul>
+
+  <!-- Messages "Start searching" or "Does not exist, try typing in different characters." would pop up -->
+  <p id="searchEmpty" class="search-empty"></p>
+
+</section>
+
+<script>
+  // CMS data being build from eleventy which will be used for search filtering
+  const SEARCH_DATA = {{ cmsdata | dump | safe }};
+
+  (function () {
+    const input = document.getElementById('searchInput');
+    const resultsEl = document.getElementById('searchResults');
+    const emptyEl = document.getElementById('searchEmpty');
+
+    //List of my APIS being rendered
+    function renderResults(items) {
+      resultsEl.innerHTML = "";
+
+      if (items.length === 0) {
+        emptyEl.textContent = "Does not exist, try typing in different characters.";
+        emptyEl.style.display = "block";
+        return;
+      }
+
+      emptyEl.style.display = "none";
+
+      items.forEach(function (post) {
+        const li = document.createElement("li");
+        li.className = "cms-card";
+
+        //The title name
+        const title = post.title || "";
+
+        // The categories area
+        let categoryText = "";
+        if (post.category) {categoryText = "Category: " + post.category + " · ";
+        }
+
+        // The date
+        let dateText = "";
+        if (post.publishedAt) {
+          const dateObj = new Date(post.publishedAt);
+          dateText = dateObj.toLocaleDateString();
+        }
+
+        // List of tags
+        let tagsText = "";
+        if (post.tags && post.tags.length > 0) {
+          tagsText = " · Tags: " + post.tags.join(", ");
+        }
+
+        // Excerpt section
+        const bodyText = post.body || "";
+        let excerpt = bodyText;
+
+        if (bodyText.length > 160) {
+          excerpt = bodyText.slice(0, 160) + "…";
+        }
+
+        // The interior of the build card
+        li.innerHTML =
+          '<h3 class="cms-card-title">' +
+            '<a href="/questions/' + post.slug + '/">' + title + "</a>" +
+          "</h3>" +
+          '<small class="cms-card-meta">' +
+            categoryText +
+            dateText +
+            tagsText +
+          "</small>" +
+          '<p class="cms-card-excerpt">' + excerpt + "</p>";
+
+        resultsEl.appendChild(li);
+      });
+    }
+
+    // Where the search imput functions
+    function handleInput() {
+      const q = input.value.toLowerCase().trim();
+
+      // Prompt when typing nothing
+      if (!q) {
+        resultsEl.innerHTML = "";
+        emptyEl.textContent = "Search posts here!";
+        emptyEl.style.display = "block";
+        return;
+      }
+
+      // All things are filtered here, body, category, or tags
+      const filtered = SEARCH_DATA.filter(function (post) {
+        const parts = [];
+
+        if (post.title) parts.push(post.title);
+        if (post.category) parts.push(post.category);
+        if (post.body) parts.push(post.body);
+      
+        if (post.tags && post.tags.length > 0) {parts.push(post.tags.join(" "));
+        }
+
+        const haystack = parts.join(" ").toLowerCase();
+        return haystack.includes(q);
+      });
+
+      renderResults(filtered);
+    }
+
+    // Filtering starts working as typing goes on
+    input.addEventListener("input", handleInput);
+  })();
+</script>
